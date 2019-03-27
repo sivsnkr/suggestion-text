@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Makegood from './makegood';
-import App1 from "./app1";
+//import Makegood from './makegood';
+import App1 from "./normalDownshift";
 const Words = [
   "flipkart",
   "flow",
@@ -29,12 +29,12 @@ class App extends Component {
     console.log("Submitted");
   }
   render() {
-    let wordArr = this.state.words.map((word,index)=>{
-      return <Makegood 
-        key={index}
-        word={word}
-      />
-    });
+    // let wordArr = this.state.words.map((word,index)=>{
+    //   return <Makegood 
+    //     key={index}
+    //     word={word}
+    //   />
+    // });
 
     return (
       <div className="App">

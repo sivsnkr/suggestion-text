@@ -4,7 +4,6 @@ import deburr from 'lodash/deburr';
 import Downshift from 'downshift';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Popper from '@material-ui/core/Popper';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import Chip from '@material-ui/core/Chip';
@@ -208,94 +207,12 @@ const styles = theme => ({
   },
 });
 
-let popperNode;
-
 function IntegrationDownshift(props) {
   const { classes } = props;
-
   return (
     <div className={classes.root}>
-      <Downshift id="downshift-simple">
-        {({
-          getInputProps,
-          getItemProps,
-          getMenuProps,
-          highlightedIndex,
-          inputValue,
-          isOpen,
-          selectedItem,
-        }) => (
-          <div className={classes.container}>
-            {renderInput({
-              fullWidth: true,
-              classes,
-              InputProps: getInputProps({
-                placeholder: 'Search a country (start with a)',
-              }),
-            })}
-            <div {...getMenuProps()}>
-              {isOpen ? (
-                <Paper className={classes.paper} square>
-                  {getSuggestions(inputValue).map((suggestion, index) =>
-                    renderSuggestion({
-                      suggestion,
-                      index,
-                      itemProps: getItemProps({ item: suggestion.label }),
-                      highlightedIndex,
-                      selectedItem,
-                    }),
-                  )}
-                </Paper>
-              ) : null}
-            </div>
-          </div>
-        )}
-      </Downshift>
-      <div className={classes.divider} />
       <DownshiftMultiple classes={classes} />
       <div className={classes.divider} />
-      <Downshift id="downshift-popper">
-        {({
-          getInputProps,
-          getItemProps,
-          getMenuProps,
-          highlightedIndex,
-          inputValue,
-          isOpen,
-          selectedItem,
-        }) => (
-          <div className={classes.container}>
-            {renderInput({
-              fullWidth: true,
-              classes,
-              InputProps: getInputProps({
-                placeholder: 'With Popper',
-              }),
-              ref: node => {
-                popperNode = node;
-              },
-            })}
-            <Popper open={isOpen} anchorEl={popperNode}>
-              <div {...(isOpen ? getMenuProps({}, { suppressRefError: true }) : {})}>
-                <Paper
-                  square
-                  style={{ marginTop: 8, width: popperNode ? popperNode.clientWidth : null }}
-                >
-                  {getSuggestions(inputValue).map((suggestion, index) =>
-                    renderSuggestion({
-                      suggestion,
-                      index,
-                      itemProps: getItemProps({ item: suggestion.label }),
-                      highlightedIndex,
-                      selectedItem,
-                    }),
-                  )}
-                </Paper>
-              </div>
-            </Popper>
-          </div>
-        )}
-      </Downshift>
     </div>
   );
 }
