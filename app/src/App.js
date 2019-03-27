@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import makegood from './makegood';
-
+import Makegood from './makegood';
+import App1 from "./app1";
 const Words = [
   "flipkart",
   "flow",
@@ -16,12 +16,12 @@ class App extends Component {
     words:[],
   }
 
-  onChange = (e)=>{
+  handleChange = (e)=>{
     this.setState({[e.target.name]:e.target.value});
     let words = Words.filter(word=>{
-      word.indexOf(this.state.textV)>0;
+      return word.indexOf(this.state.textV)>0;
     })
-    this.setState({words});
+    this.setState({words,show: true});
   }
 
   onSubmit = (e)=>{
@@ -29,22 +29,26 @@ class App extends Component {
     console.log("Submitted");
   }
   render() {
+    let wordArr = this.state.words.map((word,index)=>{
+      return <Makegood 
+        key={index}
+        word={word}
+      />
+    });
+
     return (
       <div className="App">
-        <input 
+        {/* <input 
           type="text"
+          onChange={this.handleChange}
           name="textV"
           value={this.state.textV}
         />
         {this.state.show&&
-          this.state.words.map((word,index)=>{
-            <makegood 
-              key={index}
-              word={word}
-            />
-          })
+          <div>{wordArr}</div>
         }
-        <button type="submit">Submit</button>
+        <button type="submit">Submit</button> */}
+        <App1/>
       </div>
     );
   }
